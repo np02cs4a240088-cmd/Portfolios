@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazrat Ali - Portfolio</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS -->
+    <script src="js/hazrat.js"></script>
+    <style>
+        /* Inline styles for example purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        header {
+            background: #113760;
+            padding: 20px;
+            text-align: center;
+        }
+        nav a {
+            margin: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        section {
+            padding: 20px;
+            margin: 10px;
+        }
+        .skill-bar {
+            background-color: #4caf50;
+            height: 30px;
+            margin: 10px 0;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hazrat Ali</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlmdTTOTy_OXghFYL3HeagBDt7IbeA63uARfj5MnatKQh-duGA91y2mKcIDD0hXDdcmBc&usqp=CAU" alt="">
+        <p>"I am Hazrat Ansari, a dedicated second-year student of BSc Honours Computer Science at Biratnagar International College. I am currently developing strong competencies in core programming concepts and system analysis. My goal is to leverage my growing technical skill set to innovate and solve real-world problems."</p>
+    </section>
+
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skill-bar" data-skill-level="80%">JavaScript</div>
+        <div class="skill-bar" data-skill-level="70%">HTML</div>
+        <div class="skill-bar" data-skill-level="75%">CSS</div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-card" data-link="https://example.com/project1">Project 1</div>
+        <div class="project-card" data-link="https://example.com/project2">Project 2</div>
+        <!-- Add more projects as needed -->
+    </section>
+
+    <section id="media">
+        <h2>Media</h2>
+        <video controls>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <audio controls>
+            <source src="audio.mp3" type="audio/mp3">
+            Your browser does not support the audio tag.
+        </audio>
+        <canvas id="canvas"></canvas>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="email" id="email" placeholder="Email" required />
+            <textarea id="message" placeholder="Message" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <button id="toggle-theme">Toggle Dark Mode</button>
+    <button id="back-to-top">Back to Top</button>
+
+    <footer>
+        <p>© Your Name. All rights reserved.</p>
+    </footer>
+
+    <script src="hazrat.js"></script> <!-- Make sure this file is linked correctly -->
+    <script>
+        // Skill Animation
+        function animateSkills() {
+            const bars = document.querySelectorAll('.skill-bar');
+            bars.forEach(bar => {
+                bar.style.width = bar.dataset.skillLevel; // Animate to target width
+            });
+        }
+
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                localStorage.setItem('formData', JSON.stringify({ name, email, message }));
+                window.location.href = 'form-details.html'; // Redirect to a new page
+            }
+        });
+
+        // Open Project Links
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                window.location.href = card.getAttribute('data-link'); // Use data-link
+            });
+        });
+
+        // Theme Toggle
+        document.getElementById('toggle-theme').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Back to Top Button
+        window.onscroll = function() {
+            const btn = document.getElementById('back-to-top');
+            btn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? 'block' : 'none';
+        };
+
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Run animations when the page loads
+        window.onload = function() {
+            animateSkills();
+        };
+    </script>
+</body>
+</html>
