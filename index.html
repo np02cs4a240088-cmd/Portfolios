@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazrat Ali - Portfolio</title>
+    <meta name="description" content="Hazrat Ansari — portfolio showcasing projects, skills and contact information.">
     <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS -->
-    <script src="js/hazrat.js"></script>
     <style>
         /* Inline styles for example purposes */
         body {
@@ -60,7 +60,7 @@
 
     <section id="about">
         <h2>About Me</h2>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlmdTTOTy_OXghFYL3HeagBDt7IbeA63uARfj5MnatKQh-duGA91y2mKcIDD0hXDdcmBc&usqp=CAU" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlmdTTOTy_OXghFYL3HeagBDt7IbeA63uARfj5MnatKQh-duGA91y2mKcIDD0hXDdcmBc&usqp=CAU" alt="Portrait of Hazrat Ansari">
         <p>"I am Hazrat Ansari, a dedicated second-year student of BSc Honours Computer Science at Biratnagar International College. I am currently developing strong competencies in core programming concepts and system analysis. My goal is to leverage my growing technical skill set to innovate and solve real-world problems."</p>
     </section>
 
@@ -88,15 +88,18 @@
             <source src="audio.mp3" type="audio/mp3">
             Your browser does not support the audio tag.
         </audio>
-        <canvas id="canvas"></canvas>
-        <img src="canvas.jpeg">
+        <canvas id="canvas" width="400" height="300" aria-label="Canvas artwork"></canvas>
+        <img src="canvas.jpeg" alt="Canvas artwork" style="max-width:100%;display:block;margin-top:8px;">
     </section>
 
     <section id="contact">
         <h2>Contact Me</h2>
         <form id="contact-form">
+            <label for="name">Name</label>
             <input type="text" id="name" placeholder="Name" required />
+            <label for="email">Email</label>
             <input type="email" id="email" placeholder="Email" required />
+            <label for="message">Message</label>
             <textarea id="message" placeholder="Message" required></textarea>
             <button type="submit">Submit</button>
         </form>
@@ -109,7 +112,7 @@
         <p>© Hazrat Ansari. All rights reserved.</p>
     </footer>
 
-    <script src="hazrat.js"></script> <!-- Make sure this file is linked correctly -->
+    <script src="hazrat.js"></script>
     <script>
         // Skill Animation
         function animateSkills() {
@@ -153,6 +156,27 @@
         document.getElementById('back-to-top').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Draw canvas.jpeg onto the canvas (if file exists)
+        (function drawCanvasImage(){
+            const canvas = document.getElementById('canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.src = 'canvas.jpeg'; // ensure canvas.jpeg is in project root
+            img.onload = () => {
+                const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                const w = img.width * scale;
+                const h = img.height * scale;
+                const x = (canvas.width - w) / 2;
+                const y = (canvas.height - h) / 2;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, x, y, w, h);
+            };
+            img.onerror = () => {
+                console.warn('canvas.jpeg not found. Place canvas.jpeg in project root or update the path.');
+            };
+        })();
 
         // Run animations when the page loads
         window.onload = function() {
